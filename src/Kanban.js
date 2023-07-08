@@ -1,0 +1,132 @@
+import React, { useState } from 'react';
+import styled from "@emotion/styled/macro";
+// import styled from '@emotion/styled';
+import { columnsFromBackend } from './KanbanData';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import TaskCard from './TaskCard';
+
+const Container = styled.div`
+  display: flex;
+`;
+
+const TaskList = styled.div`
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  background: #f3f3f3;
+  min-width: 800px;
+  border-radius: 5px;
+  padding: 15px 15px;
+  margin-right: 45px;
+  height: fit-content;
+`;
+
+const Day = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  border-radius: 5px;
+  background: #f3f3f3d1;
+  
+`;
+
+const TaskColumnStyles = styled.div`
+  margin: 8px;
+  // display: flex;
+  // width: 100%;
+  min-height: 80vh;
+  ${Day}:nth-child(even) {
+    margin-bottom: 20px;
+  }
+`;
+
+const Date = styled.div`
+  // color: #10957d;
+  // background: rgba(16, 149, 125, 0.15);
+  padding: 2px 10px;
+  // border-radius: 5px;
+  // align-self: flex-start;
+  min-width: 20vh;
+  // max-width: 100px;
+`;
+
+ const DayNight = styled.div`
+  margin-right: 20px
+`;
+
+
+const Kanban = () => {
+  const [columns, setColumns] = useState(columnsFromBackend);
+
+  const onDragEnd = (result, columns, setColumns) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
+    if (source.droppableId !== destination.droppableId) {
+      const sourceColumn = columns[source.droppableId];
+      const destColumn = columns[destination.droppableId];
+      const sourceItems = [...sourceColumn.items];
+      const destItems = [...destColumn.items];
+      const [removed] = sourceItems.splice(source.index, 1);
+      destItems.splice(destination.index, 0, removed);
+      setColumns({
+        ...columns,
+        [source.droppableId]: {
+          ...sourceColumn,
+          items: sourceItems,
+        },
+        [destination.droppableId]: {
+          ...destColumn,
+          items: destItems,
+        },
+      });
+    } else {
+      const column = columns[source.droppableId];
+      const copiedItems = [...column.items];
+      const [removed] = copiedItems.splice(source.index, 1);
+      copiedItems.splice(destination.index, 0, removed);
+      setColumns({
+        ...columns,
+        [source.droppableId]: {
+          ...column,
+          items: copiedItems,
+        },
+      });
+    }
+  };
+  return (
+    <DragDropContext
+      onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+    >
+      <Container>
+        <TaskColumnStyles>
+          {Object.entries(columns).map(([columnId, column], index) => {
+            return (
+              <Droppable key={columnId} droppableId={columnId}>
+                {(provided, snapshot) => (
+                  <Day>
+                    <Date><h1>{(index % 2 === 0)?(column.date):''}</h1></Date>
+                    <DayNight><p>{(index % 2 === 0 )?('День'):('Ночь')}</p></DayNight>
+                  <TaskList
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                  >
+                    
+                    <div>
+                    {column.items.map((item, index) => (
+                      <TaskCard key={index} item={item} index={index} />   // was key={item} !!
+                    ))}
+                    {provided.placeholder}
+                    </div>
+                  </TaskList>
+                  </Day>
+                )}
+              </Droppable>
+            );
+          })}
+        </TaskColumnStyles>
+      </Container>
+    </DragDropContext>
+  );
+};
+
+export default Kanban;
