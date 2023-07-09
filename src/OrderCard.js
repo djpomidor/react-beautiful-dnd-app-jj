@@ -2,7 +2,7 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from '@emotion/styled';
 
-const TaskInformation = styled.div`
+const OrderInformation = styled.div`
   display: flex;
   // flex-direction: column;
   // justify-content: center;
@@ -42,7 +42,7 @@ const OrderItem = styled.div`
   padding-left: 10px;
 `;
 
-const TaskCard = ({ item, index }) => {
+const OrderCard = ({ item, index }) => {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {(provided) => (
@@ -51,13 +51,13 @@ const TaskCard = ({ item, index }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <TaskInformation>
-            <OrderItem>{item.Task}</OrderItem>
-            {/* <OrderItem>{item.Task}</OrderItem>
-            <OrderItem>{item.Task}</OrderItem>
-            <OrderItem>{item.Task}</OrderItem>
-            <OrderItem>{item.Task}</OrderItem>
-            <OrderItem>{item.Task}</OrderItem> */}
+          <OrderInformation>
+            <OrderItem>{item.Order}</OrderItem>
+            {/* <OrderItem>{item.Order}</OrderItem>
+            <OrderItem>{item.Order}</OrderItem>
+            <OrderItem>{item.Order}</OrderItem>
+            <OrderItem>{item.Order}</OrderItem>
+            <OrderItem>{item.Order}</OrderItem> */}
             {/* <div className="secondary-details">
               <p>
                 <span>
@@ -68,14 +68,14 @@ const TaskCard = ({ item, index }) => {
                 </span>
               </p>
             </div> */}
-          </TaskInformation>
+          </OrderInformation>
         </div>
       )}
     </Draggable>
   );
 };
 
-export default TaskCard;
+export default OrderCard;
 
 // <span className="priority">
 // {item.Priority === 'High' ? (<RedArrow />) : item.Priority === 'Medium' ? (<YellowArrow />) : (<BlueArrow />)}

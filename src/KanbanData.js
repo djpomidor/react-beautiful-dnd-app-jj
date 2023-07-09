@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const data = [
   {
     id: '1',
-    Task: ' Praesent.',
+    Order: ' Praesent.',
     // Assigned_To: 'Beltran',
     // Assignee: 'Romona',
     // Status: 'To-do',
@@ -11,7 +11,7 @@ export const data = [
   },
   {
     id: '2',
-    Task: 'Fix Styling',
+    Order: 'Fix Styling',
     // Assigned_To: 'Dave',
     // Assignee: 'Romona',
     // Status: 'To-do',
@@ -20,7 +20,7 @@ export const data = [
   },
   {
     id: '3',
-    Task: 'Handle Door Specs',
+    Order: 'Handle Door Specs',
     // Assigned_To: 'Roman',
     // Assignee: 'Romona',
     // Status: 'To-do',
@@ -29,7 +29,7 @@ export const data = [
   },
   {
     id: '4',
-    Task: 'morbi',
+    Order: 'morbi',
     // Assigned_To: 'Gawen',
     // Assignee: 'Kai',
     // Status: 'Done',
@@ -38,7 +38,7 @@ export const data = [
   },
   {
     id: '5',
-    Task: 'proin',
+    Order: 'proin',
     // Assigned_To: 'Bondon',
     // Assignee: 'Antoinette',
     // Status: 'In Progress',
@@ -47,9 +47,17 @@ export const data = [
   },
 ];
 
-export const columnsFromBackend = {
+const weekday = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"]
+
+const getDayPrint = (date) => {
+  let d = new Date(date);
+  // return weekday[d.getDay()] + ", " + d.getDate() + "." + (d.getMonth() + 1); 
+  return d.toLocaleDateString('Ru', {  day: "numeric", month:"numeric", weekday:"short",}); 
+}
+
+export const daysOfPrint = {
   [uuidv4()]: {
-    date: 'Tu, 22.09',
+    date: getDayPrint("07/09/2023"),
     items: data,
   },
   [uuidv4()]: {
@@ -57,7 +65,7 @@ export const columnsFromBackend = {
     items: [],
   },
   [uuidv4()]: {
-    date: 'Se, 24.09',
+    date: getDayPrint(null),
     items: [],
   },
   [uuidv4()]: {
@@ -73,3 +81,8 @@ export const columnsFromBackend = {
     items: [],
   },  
 };
+
+export const daysOfPrintt ={
+
+};
+

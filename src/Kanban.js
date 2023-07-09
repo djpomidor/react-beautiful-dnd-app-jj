@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import styled from "@emotion/styled/macro";
 // import styled from '@emotion/styled';
-import { columnsFromBackend } from './KanbanData';
+import { daysOfPrint } from './KanbanData';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import TaskCard from './TaskCard';
+import OrderCard from './OrderCard';
 
 const Container = styled.div`
   display: flex;
 `;
 
-const TaskList = styled.div`
+const OrderList = styled.div`
   min-height: 50px;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@ const Day = styled.div`
   
 `;
 
-const TaskColumnStyles = styled.div`
+const OrderColumnStyles = styled.div`
   margin: 8px;
   // display: flex;
   // width: 100%;
@@ -56,7 +56,8 @@ const Date = styled.div`
 
 
 const Kanban = () => {
-  const [columns, setColumns] = useState(columnsFromBackend);
+  const [columns, setColumns] = useState(daysOfPrint);
+  console.log("!!!!", columns)
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
@@ -98,7 +99,7 @@ const Kanban = () => {
       onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
     >
       <Container>
-        <TaskColumnStyles>
+        <OrderColumnStyles>
           {Object.entries(columns).map(([columnId, column], index) => {
             return (
               <Droppable key={columnId} droppableId={columnId}>
@@ -106,24 +107,24 @@ const Kanban = () => {
                   <Day>
                     <Date><h1>{(index % 2 === 0)?(column.date):''}</h1></Date>
                     <DayNight><p>{(index % 2 === 0 )?('День'):('Ночь')}</p></DayNight>
-                  <TaskList
+                  <OrderList
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
                     
                     <div>
                     {column.items.map((item, index) => (
-                      <TaskCard key={index} item={item} index={index} />   // was key={item} !!
+                      <OrderCard key={index} item={item} index={index} />   // was key={item} !!
                     ))}
                     {provided.placeholder}
                     </div>
-                  </TaskList>
+                  </OrderList>
                   </Day>
                 )}
               </Droppable>
             );
           })}
-        </TaskColumnStyles>
+        </OrderColumnStyles>
       </Container>
     </DragDropContext>
   );
