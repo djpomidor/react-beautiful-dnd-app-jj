@@ -55,6 +55,21 @@ const getDayPrint = (date) => {
   return d.toLocaleDateString('Ru', {  day: "numeric", month:"numeric", weekday:"short",}); 
 }
 
+const daysGenerator = () => {
+  let dates = [];
+  [...Array(7).keys()].map(index => {
+  const date = new Date();
+  date.setDate(date.getDate() - index);
+  dates.push(date);
+  
+  
+});
+return dates;
+};
+
+let d = daysGenerator()
+console.log("!@#$%",d)
+
 export const daysOfPrint = {
   [uuidv4()]: {
     date: getDayPrint("07/09/2023"),
@@ -81,8 +96,3 @@ export const daysOfPrint = {
     items: [],
   },  
 };
-
-export const daysOfPrintt ={
-
-};
-
