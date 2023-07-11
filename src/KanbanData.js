@@ -50,7 +50,9 @@ export const data = [
 const weekday = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"]
 
 const getDayPrint = (date) => {
-  let d = new Date(date);
+  let d;
+  (date === undefined)?d = new Date():d = new Date(date);
+  
   // return weekday[d.getDay()] + ", " + d.getDate() + "." + (d.getMonth() + 1); 
   return d.toLocaleDateString('Ru', {  day: "numeric", month:"numeric", weekday:"short",}); 
 }
@@ -61,8 +63,6 @@ const daysGenerator = () => {
   const date = new Date();
   date.setDate(date.getDate() - index);
   dates.push(date);
-  
-  
 });
 return dates;
 };
@@ -70,9 +70,11 @@ return dates;
 let d = daysGenerator()
 console.log("!@#$%",d)
 
+let c = new Date().toLocaleDateString('Ru', {  day: "numeric", month:"numeric", weekday:"short",});
+
 export const daysOfPrint = {
   [uuidv4()]: {
-    date: getDayPrint("07/09/2023"),
+    date: getDayPrint("01/01/2023"),
     items: data,
   },
   [uuidv4()]: {
@@ -80,7 +82,7 @@ export const daysOfPrint = {
     items: [],
   },
   [uuidv4()]: {
-    date: getDayPrint(null),
+    date: getDayPrint(),
     items: [],
   },
   [uuidv4()]: {
@@ -88,7 +90,7 @@ export const daysOfPrint = {
     items: [],
   },
   [uuidv4()]: {
-    date: 'Se, 24.09',
+    date: c,
     items: [],
   },
   [uuidv4()]: {

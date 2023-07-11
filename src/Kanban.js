@@ -57,7 +57,7 @@ const Date = styled.div`
 
 const Kanban = () => {
   const [columns, setColumns] = useState(daysOfPrint);
-  console.log("!!!!", columns)
+  console.log("columns!!!!", columns)
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
