@@ -59,10 +59,10 @@ const getDayPrint = (date) => {
 
 const daysGenerator = () => {
   let dates = [];
-  [...Array(7).keys()].map(index => {
+  [...Array(14).keys()].map(index => {
   const date = new Date();
-  date.setDate(date.getDate() - index);
-  dates.push(date);
+  date.setDate((date.getDate() - 7) + index);
+  return dates.push(date);
 });
 return dates;
 };
@@ -72,7 +72,24 @@ console.log("!@#$%",d)
 
 let c = new Date().toLocaleDateString('Ru', {  day: "numeric", month:"numeric", weekday:"short",});
 
-export const daysOfPrint = {
+d.map((day)=> {
+  console.log("!@!@!@!", day.toLocaleDateString('Ru', {  day: "numeric", month:"numeric", weekday:"short",}));
+});
+
+// https://stackoverflow.com/questions/42974735/create-object-from-array
+
+export const daysOfPrint = ()=> {
+  const aaa = d.map((day) => {
+    return {[uuidv4()]: {
+    date: getDayPrint("01/01/2023"),
+    items: data,
+  }};
+  }) 
+  
+};
+
+
+export const daysOfPrint_ = {
   [uuidv4()]: {
     date: getDayPrint("01/01/2023"),
     items: data,
