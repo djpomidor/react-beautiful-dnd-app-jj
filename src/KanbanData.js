@@ -78,18 +78,23 @@ d.map((day)=> {
 
 // https://stackoverflow.com/questions/42974735/create-object-from-array
 
-export const daysOfPrint = ()=> {
-  const aaa = d.map((day) => {
-    return {[uuidv4()]: {
-    date: getDayPrint("01/01/2023"),
-    items: data,
-  }};
-  }) 
-  
+export const daysOfPrint_ = ()=> {
+  const obj = {};
+  for (const key of daysGenerator()) {
+      obj[key] = "aaa";
+  }
+
+  // const aaa = d.map((day) => {
+  //   return {[uuidv4()]: {
+  //   date: getDayPrint("01/01/2023"),
+  //   items: data,
+  // }};
+  // }) 
+  return obj;
 };
+console.log("!!!", daysOfPrint_())
 
-
-export const daysOfPrint_ = {
+export const daysOfPrint = {
   [uuidv4()]: {
     date: getDayPrint("01/01/2023"),
     items: data,
