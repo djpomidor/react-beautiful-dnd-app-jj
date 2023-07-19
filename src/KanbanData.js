@@ -80,8 +80,12 @@ d.map((day)=> {
 
 export const daysOfPrint_ = ()=> {
   const obj = {};
-  for (const key of daysGenerator()) {
-      obj[key] = "aaa";
+  const obj2 = {};
+  for (const key of getDayPrint()) {
+      obj[uuidv4()] = {
+        date: key,
+        items: "aaa"
+      };
   }
 
   // const aaa = d.map((day) => {
